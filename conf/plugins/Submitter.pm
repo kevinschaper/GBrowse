@@ -115,10 +115,6 @@ sub dump {
   $fasta =~ s/(\S{60})/$1\n/g;
   $fasta = ">$name\n$fasta\n";
 
-  unless ($url =~ /^http/i) {
-    $url = "http://$url";
-  }
-
   # pass-thru arguments -- to be sent to the extertnal web-site
   my %args;
   for my $arg (keys %$config) {
@@ -161,7 +157,7 @@ sub dump {
   print end_form;
 
   unless ($confirm || $extra_html) {
-    print qq(<script type="text/javascript">document.f1.submit();</script>);
+    print qq(<script type="text/javascript">window.onload = function() {document.f1.submit();};</script>);
   }
 }
 
